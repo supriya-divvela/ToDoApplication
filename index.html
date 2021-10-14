@@ -1,0 +1,47 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous"></head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+{% include 'partials/header.html' %}
+<body class="bg-secondary">
+<div class="container">
+  <div class="row">
+    <div class="col-md-7 offset-md-3">
+      <div class="bg-primary col-md-12 ">
+      <form action="{% url 'add' %}" method="post">
+        {% csrf_token %}
+          <label ><h4>Title</h4></label><br />
+          <input required type="text" name="title" id="title" class="form-control"/>
+          <label><h4>Text</h4></label>
+          <textarea required name="text" id="text" class="form-control"></textarea><br>
+         <center>
+          <input type="submit" class="btn btn-warning" class="text-center" value="Submit">
+         </center> </form>
+    </div>
+  </div>
+</div>
+</div>
+<br>
+    <ul>
+      {% for todo in todos %}
+      <center>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-5 offset-md-4">
+              <div class="img-thumbnail bg-white"><li><a href="/details/{{todo.id}}"><u><h4>{{todo.title}}</h4></u></a>
+                <p class="text-body"><h5>{{todo.text}}</h5></p>
+                <a href="{% url 'updaterecord' todo.id %}"><button class="btn btn-primary">Update</button></a>
+                <a href="{% url 'deleterecord' todo.id %}"><button class="btn btn-danger">delete</button></a></li>
+                 </div><br>
+              </div>
+          </div><br>
+        </div>
+      </center>
+      {% endfor %}
+    </ul>
+  </body>
+{% include 'partials/footer.html' %}
